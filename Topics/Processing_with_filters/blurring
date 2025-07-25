@@ -1,0 +1,43 @@
+* What is Gaussian Formula and Gaussian Blurring?
+
+- The Gaussian function used in Gaussian blurring is a mathematical function that creates a bell-shaped curve (also known as the Gaussian or normal distribution). In the context of image processing, it helps smooth or blur images by averaging pixel values with their neighbors using a weighted kernel.
+
+Steps:
+
+- A Gaussian kernel (e.g., 3x3, 5x5, 7x7) is generated using the formula.
+
+- This kernel has higher weights at the center and lower weights toward the edges.
+
+- The kernel is convolved with the image:
+
+- Each pixel is replaced with a weighted average of its neighborhood.
+
+- Pixels closer to the center contribute more due to the higher kernel values.
+
+- cv2.GaussianBlur(image, (5, 5), sigmaX) for blur -> it contains all the parameters of the Gaussian Formula.
+
+-  It is also used as a preprocessing stage before applying our machine learning or deep learning models.
+
+* What is Median Blur?
+- The Median Filter is a non-linear digital filtering technique, often used to remove noise from an image or signal. Median filtering is very widely used in digital image processing because, under certain conditions, it preserves edges while removing noise. It is one of the best algorithms to remove Salt and pepper noise.
+
+* What is Bilateral Blur?
+
+- Bilateral Blur (or Bilateral Filtering) is a powerful and edge-preserving smoothing technique in OpenCV. Unlike Gaussian or Median blur, it smooths the image without losing edge details.
+
+cv2.bilateralFilter(src, d, sigmaColor, sigmaSpace)
+
+d → Diameter of each pixel neighborhood.
+How many pixels around each pixel are considered for filtering.
+If d <= 0, it's calculated from sigmaSpace.
+
+sigmaColor → Color standard deviation.
+The filter compares color differences; a larger value means more colors are mixed together, making the image smoother.
+
+sigmaSpace → Spatial standard deviation.
+The filter compares pixel distances; a larger value means farther pixels affect each other more.
+
+- It blurs similar pixels (in terms of color and position), but preserves edges.
+- Good for denoising while keeping edges sharp.
+- Very useful in face smoothing, cartoonizing images, or image abstraction.
+

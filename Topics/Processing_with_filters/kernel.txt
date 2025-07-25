@@ -1,0 +1,12 @@
+* What is the Kernel in context to OpenCV?
+
+- A kernel is a small matrix (2D array) used to apply operations like Blurring, Sharpening, Edge detection, Embossing, etc.
+- It's also sometimes called a filter or convolution matrix.
+- A kernel (filter) is slid over the image pixel by pixel, and at each location, a dot product between the kernel and the image region is computed. That result becomes a pixel in the output image.
+
+* How is it processed?
+
+- You slide the kernel over the image.
+- At each location, you do some math (usually multiply and sum).
+- The result becomes a pixel in a new, processed image.
+
