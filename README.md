@@ -1,0 +1,1 @@
+### This repository contains the code written during learning OpenCV through Kevin Woods yt videos and training material.
