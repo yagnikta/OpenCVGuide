@@ -1,0 +1,20 @@
+* What is Thresholding?
+
+- Thresholding is a technique in OpenCV, which is the assignment of pixel values in relation to the threshold value provided. In thresholding, each pixel value is compared with the threshold value. If the pixel value is smaller than the threshold, it is set to 0, otherwise, it is set to a maximum value (generally 255). Thresholding is a very popular segmentation technique, used for separating an object considered as a foreground from its background. A threshold is a value which has two regions on its either side i.e. below the threshold or above the threshold.
+
+If f (x, y) < T
+   then f (x, y) = 0
+else
+   f (x, y) = 255
+
+where
+f (x, y) = Coordinate Pixel Value
+T = Threshold Value.
+
+Syntax: cv2.threshold(source, thresholdValue, maxVal, thresholdingTechnique)
+Parameters:
+-> source: Input Image array (must be in Grayscale).
+-> thresholdValue: Value of Threshold below and above which pixel values will change accordingly.
+-> maxVal: Maximum value that can be assigned to a pixel.
+-> thresholdingTechnique: The type of thresholding to be applied.
+
