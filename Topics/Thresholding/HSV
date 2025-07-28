@@ -1,0 +1,28 @@
+HSV stands for:
+
+H-Hue
+- The type of color (like red, blue, green, etc.), measured in degrees (0 to 179 in OpenCV).
+
+S-Saturation
+- How pure/vivid the color is (0 = dull/gray, 255 = full color).
+
+V-Value
+- Brightness of the color (0 = black, 255 = full brightness).
+
+In HSV, we can isolate colors based only on hue, and not worry much about light/shadow. It separates color info (H) from lightness (V).
+
+Example:
+To detect blue, we just filter the Hue range ≈ 100–130 (in OpenCV scale).
+
+lower_blue = np.array([60, 35, 140])
+upper_blue = np.array([180, 255, 255])
+
+Hue: 60 to 180: Covers various shades of blue and cyan.
+Saturation: 35+: Avoid dull/grayish colors.
+Value: 140+: Skip very dark regions.
+
+In HSV, detecting a blue object is like saying: "Give me anything that's blue, no matter how bright or dull it is."
+
+In BGR, you’d be saying: “Give me pixels that are exactly (72, 50, 180)... wait, maybe (70, 55, 190)... or maybe…”
+
+That’s why HSV is easier and more robust for color filtering.

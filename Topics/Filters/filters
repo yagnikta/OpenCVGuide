@@ -1,0 +1,11 @@
+* What is Kernel Convolution?
+
+- Kernel Convolution is just a process where we take a small grid of numbers and we pass them over the whole image, transforming it based on what those numbers are.
+- And by using different numbers in kernel, we can perform blurs, or edge detection, or sharpen, unsharpen, basically any effect we like.
+- its basically a big weighted average for that pixel.
+
+* What is Gaussian Blur?
+
+- A Gaussian blur takes a weighted kernel like lets say we have a 3*3 kernel, than it will take the weights having more weight in the center of the kernel and less weights as we go to the edges of the kernel, than it will simply apply that kernel to the image to generate the blur.
+- Mean blur is somewhat simple enough that we take all the weights of a kernel as 1's. Simply averaging all the pixel around the central pixel.
+

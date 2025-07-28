@@ -1,0 +1,3 @@
+* What are Contours?
+- Contours can be explained simply as a curve joining all the continuous points (along the boundary), having same color or intensity. The contours are a useful tool for shape analysis and object detection and recognition.
+
