@@ -1,84 +1,114 @@
-import numpy as np
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt
 
-# Custom Canny edge detector function
-def Canny_detector(img, weak_th=None, strong_th=None):
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img = cv2.GaussianBlur(img, (5, 5), 1.4)
 
-    gx = cv2.Sobel(np.float32(img), cv2.CV_64F, 1, 0, 3)
-    gy = cv2.Sobel(np.float32(img), cv2.CV_64F, 0, 1, 3)
+def gaussian_blur(img, ksize=(5, 5), sigma=1.4):
+    return cv2.GaussianBlur(img, ksize, sigma)
 
-    mag, ang = cv2.cartToPolar(gx, gy, angleInDegrees=True)
-    mag_max = np.max(mag)
-    if not weak_th: weak_th = mag_max * 0.1
-    if not strong_th: strong_th = mag_max * 0.5
 
-    height, width = img.shape
+def compute_gradients(img):
+    sobel_x = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=3)
+    sobel_y = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=3)
+    magnitude = np.hypot(sobel_x, sobel_y)
+    magnitude = magnitude / magnitude.max() * 255
+    direction = np.arctan2(sobel_y, sobel_x)
+    return magnitude, direction
 
-    for i_x in range(width):
-        for i_y in range(height):
-            grad_ang = ang[i_y, i_x]
-            grad_ang = abs(grad_ang - 180) if abs(grad_ang) > 180 else abs(grad_ang)
 
-            if grad_ang <= 22.5:
-                neighb_1_x, neighb_1_y = i_x - 1, i_y
-                neighb_2_x, neighb_2_y = i_x + 1, i_y
-            elif grad_ang <= 67.5:
-                neighb_1_x, neighb_1_y = i_x - 1, i_y - 1
-                neighb_2_x, neighb_2_y = i_x + 1, i_y + 1
-            elif grad_ang <= 112.5:
-                neighb_1_x, neighb_1_y = i_x, i_y - 1
-                neighb_2_x, neighb_2_y = i_x, i_y + 1
-            elif grad_ang <= 157.5:
-                neighb_1_x, neighb_1_y = i_x - 1, i_y + 1
-                neighb_2_x, neighb_2_y = i_x + 1, i_y - 1
+def non_max_suppression(magnitude, direction):
+    M, N = magnitude.shape
+    Z = np.zeros((M, N), dtype=np.uint8)
+    angle = direction * 180. / np.pi
+    angle[angle < 0] += 180
+
+    for i in range(1, M - 1):
+        for j in range(1, N - 1):
+            q, r = 255, 255
+
+            if (0 <= angle[i, j] < 22.5) or (157.5 <= angle[i, j] <= 180):
+                q = magnitude[i, j + 1]
+                r = magnitude[i, j - 1]
+            elif (22.5 <= angle[i, j] < 67.5):
+                q = magnitude[i + 1, j - 1]
+                r = magnitude[i - 1, j + 1]
+            elif (67.5 <= angle[i, j] < 112.5):
+                q = magnitude[i + 1, j]
+                r = magnitude[i - 1, j]
+            elif (112.5 <= angle[i, j] < 157.5):
+                q = magnitude[i - 1, j - 1]
+                r = magnitude[i + 1, j + 1]
+
+            if (magnitude[i, j] >= q) and (magnitude[i, j] >= r):
+                Z[i, j] = magnitude[i, j]
             else:
-                neighb_1_x, neighb_1_y = i_x - 1, i_y
-                neighb_2_x, neighb_2_y = i_x + 1, i_y
+                Z[i, j] = 0
 
-            if width > neighb_1_x >= 0 and height > neighb_1_y >= 0:
-                if mag[i_y, i_x] < mag[neighb_1_y, neighb_1_x]:
-                    mag[i_y, i_x] = 0
-                    continue
-            if width > neighb_2_x >= 0 and height > neighb_2_y >= 0:
-                if mag[i_y, i_x] < mag[neighb_2_y, neighb_2_x]:
-                    mag[i_y, i_x] = 0
+    return Z
 
-    ids = np.zeros_like(img)
 
-    for i_x in range(width):
-        for i_y in range(height):
-            grad_mag = mag[i_y, i_x]
-            if grad_mag < weak_th:
-                mag[i_y, i_x] = 0
-            elif strong_th > grad_mag >= weak_th:
-                ids[i_y, i_x] = 1
-            else:
-                ids[i_y, i_x] = 2
+def double_threshold(img, low_ratio=0.5, high_ratio=0.3):
+    high = img.max() * high_ratio
+    low = high * low_ratio
 
-    return mag
+    res = np.zeros_like(img, dtype=np.uint8)
 
-# Read image and check
-frame = cv2.imread('../pyramid.jpeg')  # Update path if needed
-if frame is None:
-    print("Image not found.")
-    exit()
+    strong = 255
+    weak = 75
 
-# Convert for matplotlib display
-frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-canny_img = Canny_detector(frame)
+    strong_i, strong_j = np.where(img >= high)
+    weak_i, weak_j = np.where((img <= high) & (img >= low))
 
-# Plotting
-fig, plots = plt.subplots(1, 2, figsize=(10, 5))
-plots[0].imshow(frame_rgb)
-plots[0].set_title("Original Image")
-plots[0].axis("off")
+    res[strong_i, strong_j] = strong
+    res[weak_i, weak_j] = weak
 
-plots[1].imshow(canny_img, cmap='gray')
-plots[1].set_title("Edge Detection Output")
-plots[1].axis("off")
+    return res, weak, strong
 
-plt.tight_layout()
-plt.show()
+
+def hysteresis(img, weak, strong):
+    M, N = img.shape
+    for i in range(1, M - 1):
+        for j in range(1, N - 1):
+            if img[i, j] == weak:
+                if any(img[i + di, j + dj] == strong for di in [-1, 0, 1] for dj in [-1, 0, 1]):
+                    img[i, j] = strong
+                else:
+                    img[i, j] = 0
+    return img
+
+
+def manual_canny(image_path):
+    original = cv2.imread(image_path, 0)
+    blurred = gaussian_blur(original)
+    grad_mag, grad_dir = compute_gradients(blurred)
+    suppressed = non_max_suppression(grad_mag, grad_dir)
+    thresholded, weak, strong = double_threshold(suppressed)
+    final = hysteresis(thresholded.copy(), weak, strong)
+
+    # Plotting all steps
+    plt.figure(figsize=(15, 8))
+
+    plt.subplot(2, 3, 1), plt.imshow(original, cmap='gray'), plt.title("Original")
+    plt.axis('off')
+
+    plt.subplot(2, 3, 2), plt.imshow(blurred, cmap='gray'), plt.title("Gaussian Blur")
+    plt.axis('off')
+
+    plt.subplot(2, 3, 3), plt.imshow(grad_mag, cmap='gray'), plt.title("Gradient Magnitude")
+    plt.axis('off')
+
+    plt.subplot(2, 3, 4), plt.imshow(suppressed, cmap='gray'), plt.title("Non-Max Suppression")
+    plt.axis('off')
+
+    plt.subplot(2, 3, 5), plt.imshow(thresholded, cmap='gray'), plt.title("Double Threshold")
+    plt.axis('off')
+
+    plt.subplot(2, 3, 6), plt.imshow(final, cmap='gray'), plt.title("Final Canny Edge")
+    plt.axis('off')
+
+    plt.tight_layout()
+    plt.show()
+
+
+if __name__ == '__main__':
+    manual_canny('../coins.jpg')  # Replace with your own image path

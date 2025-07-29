@@ -47,3 +47,12 @@ for ax in axs:
 plt.tight_layout()
 plt.show()
 fig.savefig("output.jpeg")
+
+original_bgr = cv.cvtColor(image_rgb, cv.COLOR_RGB2BGR)
+zoomed_bgr = cv.cvtColor(zoomed_image, cv.COLOR_RGB2BGR)
+scaled_bgr = cv.cvtColor(scaled_image, cv.COLOR_RGB2BGR)
+
+# Save images
+cv.imwrite("original_image.jpeg", original_bgr)
+cv.imwrite("zoomed_image.jpeg", zoomed_bgr)
+cv.imwrite("scaled_image.jpeg", scaled_bgr)

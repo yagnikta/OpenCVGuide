@@ -4,6 +4,7 @@ Choice of Interpolation Method for Resizing:
 cv2.INTER_AREA: This is used when we need to shrink an image.
 cv2.INTER_CUBIC: This is slow but more efficient.
 cv2.INTER_LINEAR: This is primarily used when zooming is required. This is the default interpolation technique in OpenCV.
+
 Syntax: cv2.resize(source, dsize, dest, fx, fy, interpolation)
 
 Parameters:

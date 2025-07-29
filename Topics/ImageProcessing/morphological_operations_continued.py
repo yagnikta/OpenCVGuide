@@ -2,32 +2,40 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-# Load an image
-image = cv2.imread('Ganeshji.webp', 0)  # Change 'input_image.jpg' to your image file path
+# Load an image (grayscale)
+image = cv2.imread('../images.jpeg', 0)
 
 # Define a kernel (structuring element)
-kernel = np.ones((5,5), np.uint8)
+kernel = np.ones((5, 5), np.uint8)
 
-# Erosion
+# Basic Morphological Operations
 erosion = cv2.erode(image, kernel, iterations=1)
-
-# Dilation
 dilation = cv2.dilate(image, kernel, iterations=1)
-
-# Opening (erosion followed by dilation)
 opening = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
-
-# Closing (dilation followed by erosion)
 closing = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
 
-# Display the results
-titles = ['Original Image', 'Erosion', 'Dilation', 'Opening', 'Closing']
-images = [image, erosion, dilation, opening, closing]
+# Advanced Morphological Operations
+gradient = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
+tophat = cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernel)
+blackhat = cv2.morphologyEx(image, cv2.MORPH_BLACKHAT, kernel)
 
-for i in range(5):
-    plt.subplot(2, 3, i+1)
+# Titles and images list
+titles = [
+    'Original Image', 'Erosion', 'Dilation', 'Opening', 'Closing',
+    'Gradient', 'Top Hat', 'Black Hat'
+]
+images = [
+    image, erosion, dilation, opening, closing,
+    gradient, tophat, blackhat
+]
+
+# Plotting all images
+plt.figure(figsize=(15, 10))
+for i in range(len(images)):
+    plt.subplot(3, 3, i + 1)
     plt.imshow(images[i], cmap='gray')
     plt.title(titles[i])
     plt.xticks([]), plt.yticks([])
 
+plt.tight_layout()
 plt.show()

@@ -2,13 +2,13 @@ import cv2
 import numpy as np
 
 # Load the image
-image = cv2.imread('../test.jpg')  # Change to your image file name
+image = cv2.imread('../test.jpg')
 original = image.copy()
 
 # Convert to grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# Apply threshold to make it binary
+# Apply a threshold to make it binary
 _, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
 
 # Find contours
@@ -23,8 +23,7 @@ for cnt in contours:
     # Calculate perimeter
     perimeter = cv2.arcLength(cnt, True)
 
-    # Calculate epsilon (10% of perimeter)
-    epsilon = 0.02 * perimeter
+    epsilon = 0.0189 * perimeter
 
     # Approximate contour
     approx = cv2.approxPolyDP(cnt, epsilon, True)

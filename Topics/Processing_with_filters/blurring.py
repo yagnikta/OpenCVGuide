@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Read image
-image = cv2.imread('../rain.jpeg')
+image = cv2.imread('../taj.jpg')
 image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # Apply Gaussian Blur

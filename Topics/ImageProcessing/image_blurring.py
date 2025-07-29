@@ -22,4 +22,3 @@ for ax in axs:
 
 plt.tight_layout()
 plt.show()
-

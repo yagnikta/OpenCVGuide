@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('../sharp.jpg')
+img = cv2.imread('Ganeshji.webp')
 image_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 """
@@ -19,7 +19,7 @@ The basic steps involved in this algorithm are:
 4 Double thresholding for segregating strong and weak edges 
  
 5 Edge tracking by hysteresis
-
+ 
 """
 edges = cv2.Canny(image_rgb, 100, 700)
 

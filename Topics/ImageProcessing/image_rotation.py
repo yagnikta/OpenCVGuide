@@ -7,7 +7,7 @@ image_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 #center point of the image.
 center = (image_rgb.shape[1] // 2, image_rgb.shape[0] // 2)
 
-angle = 30
+angle = -30
 scale = 1
 
 #give center, angle and scale of the image; angle negative will result in rotating the image anti-clock wise.

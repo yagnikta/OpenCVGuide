@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Load image
-img = cv2.imread('../test.jpeg')
+img = cv2.imread('../coins.jpg')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 # Threshold to binarize

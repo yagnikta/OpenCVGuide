@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Load image and preprocess
-img = cv2.imread('../hand.jpg')
+img = cv2.imread('../coins.jpg')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 _, thresh = cv2.threshold(gray, 170, 255, cv2.THRESH_BINARY_INV)
 

@@ -18,4 +18,3 @@
 - A kernel(a matrix of odd size(3,5,7) is convolved with the image
 - A pixel element in the original image is ‘1’ if at least one pixel under the kernel is ‘1’.
 - It increases the white region in the image or the size of the foreground object increases
-

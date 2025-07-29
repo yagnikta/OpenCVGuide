@@ -8,14 +8,14 @@ If you pass cv2.CHAIN_APPROX_NONE, all the boundary points are stored. But actua
 
 
 # Load the image
-image = cv2.imread('../sharp.jpg')  # example with clear shapes
+image = cv2.imread('../coins.jpg')  # example with clear shapes
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 # Apply threshold
 ret, thresh = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY)
 
 # Find contours
-contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+contours, hierarchy = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
 """
 cv2.RETR_EXTERNAL	Only outer contours (ignores inner nested contours)
@@ -35,7 +35,6 @@ print("Area:", area)
 # Calculates the perimeter of the outer contour. It is also called arc length. It can be found out using cv2.arcLength() function. Second argument specify whether shape is a closed contour (if passed True), or just a curve.
 perimeter = cv2.arcLength(contours[0], True)
 print("Perimeter" , perimeter)
-
 
 """
 Contour Approximation:
