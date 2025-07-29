@@ -20,6 +20,7 @@ def pureColors():
 
     # the number in the subplot is showing that in the plot create the n*m grid of plots for first two digits n and m in number and assign which plot to show in which number from 1 based indexing
     plt.figure()
+
     plt.subplot(231)
     plt.imshow(bImg)
     plt.title('blue')
