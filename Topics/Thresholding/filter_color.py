@@ -2,7 +2,7 @@
 cv2.VideoCapture(0) — opens the default webcam (0 = first camera).
 Each frame is converted from BGR to HSV (Hue, Saturation, Value).
 A color range for blue is defined.
-cv2.inRange(...) creates a mask where blue pixels are white (255), others are black (0).
+cv2.inRange(...) creates a.jpg mask where blue pixels are white (255), others are black (0).
 bitwise_and(...) applies this mask to show only the blue areas.
 The result is shown in three windows:
 Original frame

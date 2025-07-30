@@ -1,0 +1,47 @@
+- Value Represent -> brightness
+: Why is HSV preferred over RGB color space in general color operations -> HSV separates the component such a way that it is easy to focus on which component to be processesed, Hue represents the spectrum of the colors, Saturations represents the intensity of that color, how strong that color is, and Value represents the Brightness of that color. How dull or bright that color is visible. So it would be easier to pick any HSV Value for that case.
+
+- Why is hue represented from 0 - 179 in opencv defying the original 0 - 359 angle structure.
+: Since most of the operations with the opencv is supported till 8-bits i.e. 0-255 hence converting it to 180 was a move to make it memory efficient.
+    - Than how is 360 normalized to 180?
+- Significance of different Color SPaces - is it library specific ->
+: Most operations are colorspace specific
+
+- Even Kernels
+: It is possible to use even size kernel but you might have to suffer with aliasing error.
+
+Aliasing is distortion caused in original input. Mostly when we down sample in signal processing this is solved by low-pass filtering but this cannot be inserted in deep networks as it degrades performance.
+
+❌ 1. Alignment Issues
+Without a central pixel, the convolution operation may produce off-by-one artifacts or need awkward choices like shifting or padding, which makes the result inconsistent.
+
+❌ 2. Edge Handling Becomes Complex
+Odd kernels allow easy mirroring or replication at borders. Even kernels force arbitrary decisions:
+Do you anchor at top-left of the kernel?
+Or do you shift the output?
+This inconsistency can lead to misaligned feature detection.
+
+❌ 3. Symmetry Breaks
+Many filters (like Sobel, Gaussian) rely on symmetry around the center. Even kernels break this symmetry and lead to inaccurate or non-uniform filtering.
+
+Can you use even kernels?
+Technically: Yes — OpenCV and NumPy will let you define and use 2×2 or 4×4 kernels.
+
+But you:
+Must define the anchor manually (e.g., top-left, bottom-right)
+May face blurred, shifted, or incorrect results
+Usually gain no advantage
+
+Rare use cases for even kernels:
+Specialized filters (e.g., Haar-like features in face detection)
+Downsampling filters
+Certain pooling operations in deep learning
+
+- Usecases for all operations
+:
+
+
+- Opening Closing iterations
+: In the morphological operation of "opening," both erosion and dilation are performed iteratively. First, erosion is applied a specified number of times, and then dilation is applied the same number of times, using the same structuring element. This sequence removes small objects and noise from the image.
+: After a few iterations the opening and closing operations becomes idempotent, i.e., they don't change the ouptut and stays the same.
+

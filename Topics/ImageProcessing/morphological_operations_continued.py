@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 # Load an image (grayscale)
 image = cv2.imread('../images.jpeg', 0)
 
-# Define a kernel (structuring element)
+# Define a.jpg kernel (structuring element)
 kernel = np.ones((5, 5), np.uint8)
 
 # Basic Morphological Operations

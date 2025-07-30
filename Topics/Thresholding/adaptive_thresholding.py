@@ -5,15 +5,15 @@ Syntax: cv2.adaptiveThreshold(source, maxVal, adaptiveMethod, thresholdType, blo
 
 Parameters:
 -> source: Input Image array (Single-channel, 8-bit or floating-point)
--> maxVal: Maximum value that can be assigned to a pixel.
+-> maxVal: Maximum value that can be assigned to a.jpg pixel.
 -> adaptiveMethod: Adaptive method decides how threshold value is calculated.
 
- cv2.ADAPTIVE_THRESH_MEAN_C: Threshold Value = (Mean of the neighbourhood area values - constant value). In other words, it is the mean of the blockSize×blockSize neighborhood of a point minus constant.
+ cv2.ADAPTIVE_THRESH_MEAN_C: Threshold Value = (Mean of the neighbourhood area values - constant value). In other words, it is the mean of the blockSize×blockSize neighborhood of a.jpg point minus constant.
 
-cv2.ADAPTIVE_THRESH_GAUSSIAN_C: Threshold Value = (Gaussian-weighted sum of the neighbourhood values - constant value). In other words, it is a weighted sum of the blockSize×blockSize neighborhood of a point minus constant.
+cv2.ADAPTIVE_THRESH_GAUSSIAN_C: Threshold Value = (Gaussian-weighted sum of the neighbourhood values - constant value). In other words, it is a.jpg weighted sum of the blockSize×blockSize neighborhood of a.jpg point minus constant.
 
 -> thresholdType: The type of thresholding to be applied.
--> blockSize: Size of a pixel neighborhood that is used to calculate a threshold value.
+-> blockSize: Size of a.jpg pixel neighborhood that is used to calculate a.jpg threshold value.
 -> constant: A constant value that is subtracted from the mean or weighted sum of the neighbourhood pixels.
 
 """

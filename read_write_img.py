@@ -30,5 +30,5 @@ def writeImage():
     cv.imwrite(outPath, img)
 
 if __name__ == '__main__':
-    # readImage()
-    writeImage()
+    readImage()
+    # writeImage()

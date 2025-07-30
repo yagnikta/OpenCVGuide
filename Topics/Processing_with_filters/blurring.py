@@ -19,7 +19,7 @@ median_rgb = cv2.cvtColor(median, cv2.COLOR_BGR2RGB)
 bilateral = cv2.bilateralFilter(image, 9, 75, 75)
 bilateral_rgb = cv2.cvtColor(bilateral, cv2.COLOR_BGR2RGB)
 
-# Plot all images
+# Plot all imagesk
 titles = ['Original Image', 'Gaussian Blur', 'Median Blur', 'Bilateral Blur']
 images = [image_rgb, gaussian_rgb, median_rgb, bilateral_rgb]
 

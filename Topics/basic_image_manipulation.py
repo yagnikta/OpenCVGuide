@@ -19,7 +19,7 @@ def print_image_dimensions(image):
 
 def print_pixel_values(image):
     # Extracting RGB values.
-    # Here we have randomly chosen a pixel
+    # Here we have randomly chosen a.jpg pixel
     # by passing in 100, 100 for height and width.
     (B, G, R) = image[100, 100]
 
@@ -27,7 +27,7 @@ def print_pixel_values(image):
     print("R = {}, G = {}, B = {}".format(R, G, B))
 
     # We can also pass the channel to extract
-    # the value for a specific channel
+    # the value for a.jpg specific channel
     B = image[100, 100, 0]
     print("B = {}".format(B))
 
@@ -51,7 +51,7 @@ def resize_aspect_ratio(image, w, h):
     # Calculating the ratio
     ratio = 1000 / w
 
-    # Creating a tuple containing width and height
+    # Creating a.jpg tuple containing width and height
     dim = (1000, int(h * ratio))
 
     # Resizing the image
@@ -63,7 +63,7 @@ def draw_rectangle(image):
     # as it is an in-place operation.
     output = image.copy()
 
-    # Using the rectangle() function to create a rectangle.
+    # Using the rectangle() function to create a.jpg rectangle.
     rectangle = cv2.rectangle(output, (100, 50),
                               (200, 100), (0, 0, 0), 2)
 

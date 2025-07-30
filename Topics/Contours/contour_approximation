@@ -1,0 +1,22 @@
+* What is Contour Approximation?
+- Contour approximation, which uses the Ramer–Douglas–Peucker (RDP) algorithm, aims to simplify a polyline by reducing its vertices given a threshold value. In layman terms, we take a curve and reduce its number of vertices while retaining the bulk of its shape.
+
+* Ramer-Douglas-Peucker Algorithm is used for contour_approximation where the curve is simplified by taking the distance of the points from the observed line segment.
+
+🧠 Intuition
+Imagine drawing a jagged line from point A to B. The RDP algorithm tries to replace the entire jagged segment with just a straight line from A to B, unless there’s a point that is too far from this line. If there is, that point is important, so the algorithm recursively splits at that point and checks the new segments.
+
+✏️ Steps of the Algorithm
+Start with a curve made up of a sequence of points P[0], P[1], ..., P[n-1].
+
+Draw a straight line between the start point P[0] and end point P[n-1].
+
+Find the point P[i] farthest from this line.
+
+If the distance is greater than a threshold ε:
+
+That point is important, so keep it.
+
+Recursively apply the same process to the two sub-curves: P[0..i] and P[i..n-1].
+
+If no point is farther than ε, then all intermediate points can be removed.

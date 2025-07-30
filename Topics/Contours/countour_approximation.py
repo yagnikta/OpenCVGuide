@@ -8,7 +8,7 @@ original = image.copy()
 # Convert to grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# Apply a threshold to make it binary
+# Apply a.jpg threshold to make it binary
 _, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
 
 # Find contours
@@ -24,6 +24,7 @@ for cnt in contours:
     perimeter = cv2.arcLength(cnt, True)
 
     epsilon = 0.0189 * perimeter
+    print(epsilon)
 
     # Approximate contour
     approx = cv2.approxPolyDP(cnt, epsilon, True)

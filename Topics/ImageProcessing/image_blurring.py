@@ -1,6 +1,6 @@
 """
-cv2.GaussianBlur(): Smooths using a Gaussian kernel.
-cv2.medianBlur(): Replaces pixels with the median value in a neighborhood.
+cv2.GaussianBlur(): Smooths using a.jpg Gaussian kernel.
+cv2.medianBlur(): Replaces pixels with the median value in a.jpg neighborhood.
 cv2.bilateralFilter(): Preserves edges while Processing_with_filters.
 """
 

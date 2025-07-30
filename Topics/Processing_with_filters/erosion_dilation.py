@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Reading the input image in grayscale
 img = cv2.imread('../sharp.jpg', 0)
 
-# Creating a kernel of size 5x5
+# Creating a.jpg kernel of size 5x5
 kernel = np.ones((5, 5), np.float32)
 
 # Applying erosion and dilation

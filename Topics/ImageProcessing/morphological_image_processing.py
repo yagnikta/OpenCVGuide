@@ -13,12 +13,12 @@ import matplotlib.pyplot as plt
 
 image = cv2.imread('Ganeshji.webp')
 image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-kernel = np.ones((1, 1), np.uint8)
+kernel = np.ones((3, 3), np.uint8)
 
 dilated = cv2.dilate(image_gray, kernel, iterations=2)
 eroded = cv2.erode(image_gray, kernel, iterations=2)
-opening = cv2.morphologyEx(image_gray, cv2.MORPH_OPEN, kernel)
-closing = cv2.morphologyEx(image_gray, cv2.MORPH_CLOSE, kernel)
+opening = cv2.morphologyEx(image_gray, cv2.MORPH_OPEN, kernel, iterations=3)
+closing = cv2.morphologyEx(image_gray, cv2.MORPH_CLOSE, kernel, iterations=3)
 
 fig, axs = plt.subplots(2, 2, figsize=(7, 7))
 axs[0, 0].imshow(dilated, cmap='Greys'), axs[0, 0].set_title('Dilated Image')

@@ -1,8 +1,8 @@
 """
-In Otsu Thresholding, the value of the threshold isn't chosen but is determined automatically. A bimodal image (two distinct image values) is considered. The histogram generated contains two peaks. So, a generic condition would be to choose a threshold value that lies in the middle of both the histogram peak values. We use the Traditional cv2.threshold function and use cv2.THRESH_OTSU as an extra flag.
+In Otsu Thresholding, the value of the threshold isn't chosen but is determined automatically. A bimodal image (two distinct image values) is considered. The histogram generated contains two peaks. So, a.jpg generic condition would be to choose a.jpg threshold value that lies in the middle of both the histogram peak values. We use the Traditional cv2.threshold function and use cv2.THRESH_OTSU as an extra flag.
 
-Think of Pixel Values as a List
-Your grayscale image is just a matrix of numbers from 0 (black) to 255 (white).
+Think of Pixel Values as a.jpg List
+Your grayscale image is just a.jpg matrix of numbers from 0 (black) to 255 (white).
 
 Suppose your image has these pixel intensities: 50, 52, 53, 48, 200, 202, 199, 205
 
@@ -18,7 +18,7 @@ Near 200 → another high bar
 In between → very few pixels
 
 This forms two peaks: one for dark things and one for bright things.
-This is called a bimodal distribution — "bi" means two peaks.
+This is called a.jpg bimodal distribution — "bi" means two peaks.
 
 Now What Does Otsu Do?
 
