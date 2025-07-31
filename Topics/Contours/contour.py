@@ -46,8 +46,6 @@ cnt: The original shape you found using cv2.findContours().
 epsilon: How much error or "wiggle" you're willing to allow. It's a.jpg percentage of the perimeter (arc length) of the shape.
 True: Means the contour is closed (it loops back to the start).
 
-
-
 """
 
 # Display using matplotlib
